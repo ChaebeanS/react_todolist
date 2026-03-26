@@ -6,7 +6,7 @@ const todoStore = create((set) => ({
 
   save: async function(value){
     try{
-        let res = await axios.post("REACT_APP_APIURL",value)
+        let res = await axios.post(process.env.REACT_APP_APIURL,value)
         set((item)=>({data:[...item.data, res.data.data]}));
 
         if(!res.data.success){throw new Error(res.data.msg);}
@@ -39,7 +39,7 @@ const todoStore = create((set) => ({
   },
 
   completeTodo: async function(id){
-    const res = await axios.put(`${process.env.REACT_APP_APIURL}state?id=${id}`,{isdone:true});
+    const res = await axios.put(`${process.env.REACT_APP_APIURL}/state?id=${id}`,{isdone:true});
     // const res = await axios.put(`http://localhost:4000/todo`,{id, isdone:true});
     set((item)=>{
       let updateData = item.data.map((obj)=>{
